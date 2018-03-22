@@ -1,6 +1,6 @@
 # 如何调试vue源码
 
-### npm scripts
+## npm scripts
 
 在package.json中可以看到所有的npm scripts，与调试相关的有
 
@@ -23,6 +23,8 @@
 
 TARGET不同。build/config.js文件里记录了所有vue的编译场景和对应入口。
 
+## vue的编译场景和对应入口
+
 | **场景** | **入口** | **备注** |
 | :--- | :--- | :--- |
 | web-full-cjs | web/entry-runtime-with-compiler.js | cjs: CommonJS |
@@ -35,23 +37,21 @@ TARGET不同。build/config.js文件里记录了所有vue的编译场景和对�
 | web-runtime-prod | web/entry-runtime.j |  |
 | 其他场景是关于服务器端渲染和weex |  |  |
 
-这个表格可以和官网的解释对应起来 [https://vuejs.org/v2/guide/installation.html\#Explanation-of-Different-Builds](https://vuejs.org/v2/guide/installation.html#Explanation-of-Different-Builds)
+build/config.js可以和[官网对于vue不同版本的解释](https://vuejs.org/v2/guide/installation.html#Explanation-of-Different-Builds)对应起来。
 
-表格里场景有很多，入口只有两个文件：entry-runtime-with-compiler.js和entry-runtime.js，他们的区别是什么呢？
+entry-runtime-with-compiler.js和entry-runtime.js的区别是什么呢？
 
-entry-runtime-with-compiler.js：编译出来是完整版vue，包含runtime和compiler。
+* entry-runtime-with-compiler.js：编译出来是完整版vue，包含runtime和compiler。
 
-entry-runtime.js：只包含runtime版本。
+* entry-runtime.js：只包含runtime版本。
 
-compiler用来做模板字符串编译，也就是只有在基于vue的项目中需要包含template才会用到
+compiler用来做模板字符串编译，也就是只有在基于vue的业务项目中包含template选项才会用到。
 
 ```
 new Vue({template: ''})
 ```
 
-**大多数情况下，基于vue的业务项目应该使用only runtime版本，它比完整版体积要小30%。only runtime版本gzip后大约20kb多一点。**
-
-
+**大多数情况下，基于vue的业务项目应该使用only runtime版本，它比完整版体积小30%，gzip后大约20kb多一点。**
 
 ### 所见即所得的调试
 
