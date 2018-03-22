@@ -53,7 +53,7 @@ new Vue({template: ''})
 
 **大多数情况下，基于vue的业务项目应该使用only runtime版本，它比完整版体积小30%，gzip后大约20kb多一点。**
 
-## 所见即所得的调试
+## 调试
 
 ```
 npm run dev // 编译模式为web-full-dev，入口为entry-runtime-with-compiler
