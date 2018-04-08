@@ -67,12 +67,14 @@ npm run dev // 编译模式为web-full-dev，入口为entry-runtime-with-compile
 
 ## 从入口文件开始
 
-上面说到有两个入口文件，`entry-runtime-with-compiler.js`和`entry-runtime.js`。以`entry-runtime.js`为例，
+上面说到有两个入口文件，`entry-runtime-with-compiler.js`和`entry-runtime.js`。以`entry-runtime.js`为例，直接从`./runtime/index.js`中`import Vue`返回。
 
     import Vue from './runtime/index'
     export default Vue
 
-而`entry-runtime-with-compiler.js`在`./runtime/index`的基础上做了一些compiler相关的处理，也就是template选项相关的处理。在`/runtime/index.js`文件中，
+而`entry-runtime-with-compiler.js`在`./runtime/index`的基础上做了一些compiler相关的处理，也就是template选项相关的处理。
+
+相应地，在`./runtime/index.js`文件中，
 
     import Vue from 'core/index'
 
@@ -80,7 +82,7 @@ npm run dev // 编译模式为web-full-dev，入口为entry-runtime-with-compile
     
     import Vue from './instance/index'
 
-在`instance/index.js`文件中，Vue构造函数的定义如下：
+在`./instance/index.js`文件中，Vue构造函数的定义如下：
 
     import { initMixin } from './init'
     function Vue (options) {
@@ -89,12 +91,21 @@ npm run dev // 编译模式为web-full-dev，入口为entry-runtime-with-compile
     initMixin(Vue)
     export default Vue
 
-`init.js`文件中，
+`init.js`文件中，定义了实例方法_init
 
     export function initMixin (Vue) {
       Vue.prototype._init = function(options) {
         const vm = this
         ...
-        // 对Vue实例初始化
+        // 对Vue实例vm进行初始化
       }
     }
+    
+也就是说，Vue构造函数经历的如下的顺序，最终被返回：
+
+src/core/instance/index =>
+src/core/index =>
+src/platforms/runtime/index.js =>
+src/platforms/entry-runtime.js
+
+读源码也可以遵循这样的顺序，从`src/core/instance/index`这个文件开始。
