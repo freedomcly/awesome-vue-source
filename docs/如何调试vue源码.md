@@ -67,14 +67,14 @@ npm run dev // 编译模式为web-full-dev，入口为entry-runtime-with-compile
 
 ## 从入口文件开始
 
-上面说到有两个入口文件，`entry-runtime-with-compiler.js`和`entry-runtime.js`。以`entry-runtime.js`为例，直接从`./runtime/index.js`中`import Vue`返回。
+上面说到有两个入口文件，`entry-runtime-with-compiler.js`和`entry-runtime.js`。入口文件`entry-runtime.js`直接从`./runtime/index.js`中`import Vue`返回。
 
     import Vue from './runtime/index'
     export default Vue
 
-而`entry-runtime-with-compiler.js`在`./runtime/index`的基础上做了一些compiler相关的处理，也就是template选项相关的处理。
+而入口文件`entry-runtime-with-compiler.js`在`./runtime/index`的基础上做了一些compiler相关的处理，也就是template选项相关的处理。
 
-相应地，在`./runtime/index.js`文件中，
+在`./runtime/index.js`文件中，
 
     import Vue from 'core/index'
 
