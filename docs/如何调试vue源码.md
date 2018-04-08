@@ -72,5 +72,29 @@ npm run dev // 编译模式为web-full-dev，入口为entry-runtime-with-compile
     import Vue from './runtime/index'
     export default Vue
 
-而`entry-runtime-with-compiler.js`在`./runtime/index`的基础上做了一些compiler相关的处理，也就是template选项相关。
+而`entry-runtime-with-compiler.js`在`./runtime/index`的基础上做了一些compiler相关的处理，也就是template选项相关的处理。在`/runtime/index.js`文件中，
 
+    import Vue from 'core/index'
+
+在`core/index.js`文件中，
+    
+    import Vue from './instance/index'
+
+在`instance/index.js`文件中，Vue构造函数的定义如下：
+
+    import { initMixin } from './init'
+    function Vue (options) {
+      this._init(options)
+    }
+    initMixin(Vue)
+    export default Vue
+
+`init.js`文件中，
+
+    export function initMixin (Vue) {
+      Vue.prototype._init = function(options) {
+        const vm = this
+        ...
+        // 对Vue实例初始化
+      }
+    }
