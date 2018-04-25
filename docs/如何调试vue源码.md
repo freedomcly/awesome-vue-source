@@ -101,7 +101,7 @@ npm run dev // 编译模式为web-full-dev，入口为entry-runtime-with-compile
       }
     }
     
-也就是说，Vue构造函数经历的如下的顺序，最终被返回：
+也就是说，Vue构造函数经历了如下的顺序，最终被返回：
 
 src/core/instance/index =>
 src/core/index =>
