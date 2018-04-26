@@ -185,4 +185,4 @@ MVVM是从MVC演化而来的软件架构模式。在现代vue项目中，可以�
     }
 
 
-* 
+* defineReactive中涉及到两个类：Dep和Watcher。
