@@ -121,6 +121,10 @@ MVVM是从MVC演化而来的软件架构模式。在现代vue项目中，可以�
         }
       }
     }
+    
+* 在Observer中，会把Observer实例赋值给$data.\_\_ob\_\_
+* 另外，对data是数组和键值对的情况进行分别处理，数组时对每个值再进行observe(item)，键值对时，defineReactive(obj, key, value)
+
 
     export function defineReactive (
       obj: Object,
