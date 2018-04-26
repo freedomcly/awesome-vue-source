@@ -114,7 +114,7 @@
 依次初始化的变量有：
 * _uid // 同一个页面上vue实例的唯一标识，从0开始递增，在单页应用中是什么情况呢？
 * _isVue
-* $options // 合并选项，vue组件和vue页面情况不同？什么是vue组件，什么是vue页面
+* $options // 合并选项，vue组件和vue页面情况不同？什么是vue组件，什么是vue页面？
 * _renderProxy // 生产环境是vm实例自身
 * _self // vm实例自身
 
