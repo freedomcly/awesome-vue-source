@@ -1,4 +1,6 @@
-# 开始
+# 初始化vue实例
+
+## 开始
 
 这是`src/core/instance/index`文件的全部内容。
 
@@ -51,7 +53,7 @@
 * warn是vue项目中自定义的console方法，底层使用JavaScript`console.error`
 * 为什么vue实例vm可以调用`this._init`方法呢？事实上，经过`initMixin(Vue)`后，Vue的原型对象增加了Vue.prototype._init。新建vm实例时，也就是`new Vue({})`运行时，vm实例可以调用构造函数Vue的原型对象上的方法
 
-# _init中做了哪些事
+## _init中做了哪些事
 
 源码中`process.env.NODE_ENV !== 'production'`可以在`build/config.js`中配置。
 
@@ -152,7 +154,7 @@
 
 * $el                       // 真实dom元素
 
-# 一些问题
+## 一些问题
 
 * 为什么`_init`一进去，vue实例里已经有几个变量：$data/$isServer/$props/$ssrContext
 * 前缀有什么区别：_/$/
