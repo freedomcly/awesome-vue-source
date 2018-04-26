@@ -185,4 +185,5 @@ MVVM是从MVC演化而来的软件架构模式。在现代vue项目中，可以�
     }
 
 
+* defineReactive就是vue响应式的核心代码，把data中所有值改写成get和set。
 * defineReactive中涉及到两个类：Dep和Watcher。
