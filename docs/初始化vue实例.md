@@ -158,5 +158,11 @@
 * 前缀有什么区别：_/$/
 * 多页应用和单页应用中_uid的情况
 * $data、_data和vm实例下对应变量们[data name]的区别是什么
+* vue组件和vue页面的区别是什么？_isComponent有什么用
+* let a1 = {}和let a2 = Object.create(null)的区别是什么
+* \_\_proto\_\_是什么
+
+问题可以在之后慢慢回答。
+
 
 
