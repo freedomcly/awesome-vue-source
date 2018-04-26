@@ -299,57 +299,18 @@ data的setter函数调用时，data对应的dep实例调用dep.notify。dep实�
       }
     }
 
-如果message.foo被重新赋值时，Vue可以感知，因为getter函数中的依赖收集会对对象进行递归。
-
-    let childOb = !shallow && observe(val)
-    ...
-    get: function reactiveGetter () {
-      const value = getter ? getter.call(obj) : val
-      if (Dep.target) {
-        dep.depend()
-        if (childOb) {
-          console.log(key)
-          childOb.dep.depend()
-          if (Array.isArray(value)) {
-            dependArray(value)
-          }
-        } else {
-          console.log(key)
-        }
-      }
-      // console.log(dep)
-      return value
-    },
-
-
+如果message.foo被重新赋值时，Vue可以感知，因为getter函数中的依赖收集会对对象进行递归，可以参考之前引用的getter函数。
 如果更新数据，
 
     vm.data.message.foo = {foo1: 'foo1', foo2: 'foo2'}
     
-Vue依旧能感知到message.foo.foo1的变化，因为在setter函数中也会对value进行递归的依赖收集。
-
-    set: function reactiveSetter (newVal) {
-      const value = getter ? getter.call(obj) : val
-      /* eslint-disable no-self-compare */
-      if (newVal === value || (newVal !== newVal && value !== value)) {
-        return
-      }
-      /* eslint-enable no-self-compare */
-      if (process.env.NODE_ENV !== 'production' && customSetter) {
-        customSetter()
-      }
-      if (setter) {
-        setter.call(obj, newVal)
-      } else {
-        val = newVal
-      }
-      childOb = !shallow && observe(newVal)
-      // console.log(dep)
-      dep.notify()
-    }
+Vue依旧能感知到message.foo.foo1的变化，因为在setter函数中也会对value进行递归的依赖收集，可以参考之前引用的setter函数。
     
 但是，当赋值为数组时，
 
     vm.data.message.foo = [1, 2, 3]
 
-Vue不能感知到`vm.data.message.foo[0] = 2`的变化。
+Vue不能感知到`vm.data.message.foo[0] = 2`的变化。对应于[官网列表渲染相关的解释](https://cn.vuejs.org/v2/guide/list.html#%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9)。
+
+疑问：
+* 为什么Vue不能感知到数组的变化呢？
