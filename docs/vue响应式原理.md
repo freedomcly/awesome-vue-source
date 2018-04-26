@@ -284,9 +284,11 @@ data的setter函数调用时，data对应的dep实例调用dep.notify。dep实�
       }
     }
     
-具体实现？
+具体实现？等待细化...
 
-值得注意的是，假设vue中有一个data message
+## 一个例子
+
+值得注意的是，假设vue中有一个data message：
 
     data() {
       return {
@@ -297,4 +299,57 @@ data的setter函数调用时，data对应的dep实例调用dep.notify。dep实�
       }
     }
 
-如果message.foo被重新赋值时，Vue可以感知，因为getter函数中的依赖收集会对对象进行递归
+如果message.foo被重新赋值时，Vue可以感知，因为getter函数中的依赖收集会对对象进行递归。
+
+    let childOb = !shallow && observe(val)
+    ...
+    get: function reactiveGetter () {
+      const value = getter ? getter.call(obj) : val
+      if (Dep.target) {
+        dep.depend()
+        if (childOb) {
+          console.log(key)
+          childOb.dep.depend()
+          if (Array.isArray(value)) {
+            dependArray(value)
+          }
+        } else {
+          console.log(key)
+        }
+      }
+      // console.log(dep)
+      return value
+    },
+
+
+如果更新数据，
+
+    vm.data.message.foo = {foo1: 'foo1', foo2: 'foo2'}
+    
+Vue依旧能感知到message.foo.foo1的变化，因为在setter函数中也会对value进行递归的依赖收集。
+
+    set: function reactiveSetter (newVal) {
+      const value = getter ? getter.call(obj) : val
+      /* eslint-disable no-self-compare */
+      if (newVal === value || (newVal !== newVal && value !== value)) {
+        return
+      }
+      /* eslint-enable no-self-compare */
+      if (process.env.NODE_ENV !== 'production' && customSetter) {
+        customSetter()
+      }
+      if (setter) {
+        setter.call(obj, newVal)
+      } else {
+        val = newVal
+      }
+      childOb = !shallow && observe(newVal)
+      // console.log(dep)
+      dep.notify()
+    }
+    
+但是，当赋值为数组时，
+
+    vm.data.message.foo = [1, 2, 3]
+
+Vue不能感知到`vm.data.message.foo[0] = 2`的变化。
