@@ -190,3 +190,111 @@ MVVM是从MVC演化而来的软件架构模式。在现代vue项目中，可以�
 
 ## 依赖收集
 
+Dep类：
+
+    export default class Dep {
+      static target: ?Watcher;
+      id: number;
+      subs: Array<Watcher>;
+
+      constructor () {
+        this.id = uid++
+        this.subs = []
+      }
+
+      addSub (sub: Watcher) {
+        this.subs.push(sub)
+      }
+
+      removeSub (sub: Watcher) {
+        remove(this.subs, sub)
+      }
+
+      depend () {
+        if (Dep.target) {
+          Dep.target.addDep(this)
+        }
+      }
+
+      notify () {
+        // stabilize the subscriber list first
+        const subs = this.subs.slice()
+        for (let i = 0, l = subs.length; i < l; i++) {
+          subs[i].update()
+        }
+      }
+    }
+    
+Dep是依赖类。每个data对应一个Dep实例dep，当data有依赖时，也就是调用data的getter方法时，调用对应的dep.depend()方法。
+
+depend()方法中调用Dep.target.addDep(this)，这里的this指向dep实例，Dep.target是Watcher类，addDep把这个dep依赖实例添加到Watcher实例（Dep.target）中。也就是说，Dep.target中保存着这个vue实例所有的依赖，vue实例的_watcher指向Dep.target。
+
+Watcher类也可以看一下，addDep方法在newDepsId和newDeps中分别添加当前的dep，他们的值一一对应。
+
+    export default class Watcher {
+      vm: Component;
+      expression: string;
+      cb: Function;
+      id: number;
+      deep: boolean;
+      user: boolean;
+      lazy: boolean;
+      sync: boolean;
+      dirty: boolean;
+      active: boolean;
+      deps: Array<Dep>;
+      newDeps: Array<Dep>;
+      depIds: ISet;
+      newDepIds: ISet;
+      getter: Function;
+      value: any;
+      
+      ...
+      
+      addDep (dep: Dep) {
+        const id = dep.id
+        if (!this.newDepIds.has(id)) {
+          this.newDepIds.add(id)
+          this.newDeps.push(dep)
+          if (!this.depIds.has(id)) {
+            dep.addSub(this)
+          }
+        }
+      }
+      
+      ...
+    }
+    
+    
+疑问：
+* deps和newDeps有什么区别？
+
+## 数据更新
+
+data的setter函数调用时，data对应的dep实例调用dep.notify。dep实例中保存的subs数组是Watcher实例数组。subs中每个Watcher实例调用update()。
+
+    update () {
+      /* istanbul ignore else */
+      if (this.lazy) {
+        this.dirty = true
+      } else if (this.sync) {
+        this.run()
+      } else {
+        queueWatcher(this)
+      }
+    }
+    
+具体实现？
+
+值得注意的是，假设vue中有一个data message
+
+    data() {
+      return {
+        message:{
+          foo: 'foo',
+          bar: 'bar'
+        }
+      }
+    }
+
+如果message.foo被重新赋值时，Vue可以感知，因为getter函数中的依赖收集
