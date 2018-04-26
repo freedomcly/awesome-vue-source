@@ -145,6 +145,12 @@
 * $attrs
 * $listeners
 // 25
+// initState
+* _watchers
+* _props
+* [data name]
+* [method name]
+// 31
 
 
 # 一些问题
