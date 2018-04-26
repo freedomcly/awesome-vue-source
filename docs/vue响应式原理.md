@@ -35,7 +35,7 @@ MVVM是从MVC演化而来的软件架构模式。在现代vue项目中，可以�
 * render View时进行依赖收集
 * 更新Model层数据时，调用setter函数，如果有依赖就发出通知
 
-## 源码
+## 源码解读
 
     function initData (vm: Component) {
       let data = vm.$options.data
@@ -72,6 +72,7 @@ MVVM是从MVC演化而来的软件架构模式。在现代vue项目中，可以�
     }
 
 * proxy会把$data中的数据代理到vm上，也就是vm.$data.key1可以直接用vm.key1来访问，具体实现机制可以后面再看
+
 
     function observe(value, asRootData) {
       ...
