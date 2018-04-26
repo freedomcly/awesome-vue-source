@@ -314,3 +314,5 @@ Vue不能感知到`vm.data.message.foo[0] = 2`的变化。对应于[官网列表
 
 疑问：
 * 为什么Vue不能感知到数组的变化呢？
+
+因为Object.defineProperty的限制。
