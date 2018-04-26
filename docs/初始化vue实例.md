@@ -157,5 +157,6 @@
 * 为什么`_init`一进去，vue实例里已经有几个变量：$data/$isServer/$props/$ssrContext
 * 前缀有什么区别：_/$/
 * 多页应用和单页应用中_uid的情况
+* $data、_data和vm实例下对应变量们[data name]的区别是什么
 
 
