@@ -37,8 +37,147 @@ MVVM是从MVC演化而来的软件架构模式。在现代vue项目中，可以�
 
 ## 源码
 
+    function initData (vm: Component) {
+      let data = vm.$options.data
+      data = vm._data = typeof data === 'function' ? getData(data, vm) : data || {}
+      ...
+
+      // proxy data on instance
+      const keys = Object.keys(data)
+      let i = keys.length
+      while (i--) {
+        const key = keys[i]
+        proxy(vm, `_data`, key)
+      }
+
+      // observe data
+      observe(data, true /* asRootData */)
+    }
+    
+* 首先，initData中会检查选项options中的data的类型是对象还是函数，对此进行不同的处理。应用vue时data有两种写法：data: {key1: value1, key2: value2}; data(){return {key1: value1, key2: value2}}，可以参考vue的api文档：[data](https://cn.vuejs.org/v2/api/#data)
+* initData做了什么呢？初始化$data。在initData之前，$data是undefined，initData之后$data是:
 
 
+    {
+      key1: value1,
+      key2: value2,
+      ...,
+      __ob__: {...},
+      get key1: ...,
+      set key1: ...,
+      get key2: ...,
+      set key2: ...,
+      ...,
+      __proto__: {...}
+    }
+
+* proxy会把$data中的数据代理到vm上，也就是vm.$data.key1可以直接用vm.key1来访问，具体实现机制可以后面再看
+
+    function observe(value, asRootData) {
+      ...
+      let ob = new Observer(value)
+      ...
+      return ob
+    }
+    
+    export class Observer {
+      value: any;
+      dep: Dep;
+      vmCount: number; // number of vms that has this object as root $data
+
+      constructor (value: any) {
+        this.value = value
+        this.dep = new Dep()
+        this.vmCount = 0
+        def(value, '__ob__', this)
+        if (Array.isArray(value)) {
+          const augment = hasProto ? protoAugment : copyAugment
+          augment(value, arrayMethods, arrayKeys)
+          this.observeArray(value)
+        } else {
+          this.walk(value)
+        }
+      }
+
+      /**
+        * Walk through each property and convert them into
+        * getter/setters. This method should only be called when
+        * value type is Object.
+        */
+      walk (obj: Object) {
+        const keys = Object.keys(obj)
+        for (let i = 0; i < keys.length; i++) {
+          defineReactive(obj, keys[i], obj[keys[i]])
+        }
+      }
+
+      /**
+        * Observe a list of Array items.
+        */
+      observeArray (items: Array<any>) {
+        for (let i = 0, l = items.length; i < l; i++) {
+          observe(items[i])
+        }
+      }
+    }
+
+    export function defineReactive (
+      obj: Object,
+      key: string,
+      val: any,
+      customSetter?: ?Function,
+      shallow?: boolean
+    ) {
+      const dep = new Dep()
+
+      const property = Object.getOwnPropertyDescriptor(obj, key)
+      if (property && property.configurable === false) {
+        return
+      }
+
+      // cater for pre-defined getter/setters
+      const getter = property && property.get
+      const setter = property && property.set
+
+      let childOb = !shallow && observe(val)
+      Object.defineProperty(obj, key, {
+        enumerable: true,
+        configurable: true,
+        get: function reactiveGetter () {
+          const value = getter ? getter.call(obj) : val
+          if (Dep.target) {
+            dep.depend()
+            if (childOb) {
+              childOb.dep.depend()
+              if (Array.isArray(value)) {
+                dependArray(value)
+              }
+            }
+          }
+          // console.log(dep)
+          return value
+        },
+        set: function reactiveSetter (newVal) {
+          const value = getter ? getter.call(obj) : val
+          /* eslint-disable no-self-compare */
+          if (newVal === value || (newVal !== newVal && value !== value)) {
+            return
+          }
+          /* eslint-enable no-self-compare */
+          if (process.env.NODE_ENV !== 'production' && customSetter) {
+            customSetter()
+          }
+          if (setter) {
+            setter.call(obj, newVal)
+          } else {
+            val = newVal
+          }
+          childOb = !shallow && observe(newVal)
+          // console.log(dep)
+          dep.notify()
+        }
+      })
+    }
 
 
-
+* 
