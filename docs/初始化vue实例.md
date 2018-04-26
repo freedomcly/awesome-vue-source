@@ -135,22 +135,22 @@
 * _hasHookEvent             // false
 
 // initRender
-* _vnode
-* $vnode
-* $slots
-* $scopedSlots
-* _c
-* $createElement
-* $attrs
-* $listeners
+* _vnode                    // null
+* $vnode                    // undefined
+* $slots                    // {}
+* $scopedSlots              // {}
+* _c                        // ?
+* $createElement            // ?
+* $attrs                    // {}
+* $listeners                // {}
 
 // initState
-* _watchers
-* _props
+* _watchers                 // ?
+* _props                    // {}
 * [data name]
 * [method name]
 
-* $el
+* $el                       // 真实dom元素
 
 # 一些问题
 
