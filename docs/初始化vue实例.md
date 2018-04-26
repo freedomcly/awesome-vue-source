@@ -47,13 +47,13 @@
     
 需要注意：
 * 如果以`new Vue()`的方式运行，Vue构造函数中this指向vue实例vm
-* 如果没有以`new Vue({})`的方式运行，this指向不是vm，`this instanceof Vue`返回`false`，浏览器console中会提示：Vue is a constructor and should be called with the \`new\` keyword
+* 如果没有以`new Vue({})`的方式运行，this指向不是vm，`this instanceof Vue`返回`false`，dev版本的vue会在浏览器console中提示：Vue is a constructor and should be called with the \`new\` keyword
 * warn是vue项目中自定义的console方法，底层使用JavaScript`console.error`
 * 为什么vue实例vm可以调用`this._init`方法呢？事实上，经过`initMixin(Vue)`后，Vue的原型对象增加了Vue.prototype._init。新建vm实例时，也就是`new Vue({})`运行时，vm实例可以调用构造函数Vue的原型对象上的方法
 
 # _init中做了哪些事
 
-源码中`process.env.NODE_ENV !== 'production'`
+源码中`process.env.NODE_ENV !== 'production'`可以在`build/config.js`中配置。
 
     Vue.prototype._init = function (options?: Object) {
       const vm: Component = this
@@ -111,18 +111,17 @@
       }
     }
 
-初始化的变量有：
-* _uid
+依次初始化的变量有：
+* _uid // 同一个页面上vue实例的唯一标识，从0开始递增，在单页应用中是什么情况呢？
 * _isVue
-* $options
-* _renderProxy
-* _self
-
+* $options // 合并选项，vue组件和vue页面情况不同？什么是vue组件，什么是vue页面
+* _renderProxy // 生产环境是vm实例自身
+* _self // vm实例自身
 
 // initLifecycle
-* $parent
-* $root
-* $children
+* $parent // 指向父组件
+* $root // 指向根组件
+* $children // 
 * $refs
 * _watcher
 * _inactive
@@ -144,17 +143,19 @@
 * $createElement
 * $attrs
 * $listeners
-// 25
+
 // initState
 * _watchers
 * _props
 * [data name]
 * [method name]
-// 31
+
 * $el
 
 # 一些问题
 
 * 为什么`_init`一进去，vue实例里已经有几个变量：$data/$isServer/$props/$ssrContext
 * 前缀有什么区别：_/$/
+* 多页应用和单页应用中_uid的情况
+
 
