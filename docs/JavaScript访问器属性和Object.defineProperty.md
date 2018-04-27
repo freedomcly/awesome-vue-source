@@ -24,6 +24,9 @@ JavaScript对象中的属性有两种：数据属性和访问器属性。特性�
 
 ES5中的新增了几个方法。`Object.defineProperty`和`Object.defineProperties`可以配置属性的特性。`Object.getOwnPropertyDescriptor`可以查询属性的特性。
 
-Vue响应式机制能感知到set data，但`Object.defineProperty`不能感知什么？
+Vue中的`Object.defineProperty`响应式机制能感知到set data，不能感知什么呢？
 
-* 
+* 不能感知对象属性的添加或删除
+* 不能感知直接用索引设置数组项，例如：vm.items[indexOfItem] = newValue
+* 不能感知数组长度的修改，例如：vm.items.length = newLength
+* 不能感知数组的push/pop等操作
