@@ -22,4 +22,4 @@ JavaScript对象中的属性有两种：数据属性和访问器属性。特性�
 
 ## Object.defineProperty
 
-Object.defineProperty和Object.defineProperties可以配置属性的特性。Object.getOwnPropertyDescriptor
+`Object.defineProperty`和`Object.defineProperties`可以配置属性的特性。`Object.getOwnPropertyDescriptor`可以查询属性的特性。
