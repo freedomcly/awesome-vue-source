@@ -30,3 +30,28 @@ Vue中的`Object.defineProperty`响应式机制能感知到set data，不能感�
 * 不能感知直接用索引设置数组项，例如：vm.items[indexOfItem] = newValue
 * 不能感知数组长度的修改，例如：vm.items.length = newLength
 * 不能感知数组的push/pop等操作
+
+### 1.不能感知对象属性的添加或删除
+
+
+    let data = {
+      _ooo: {
+        name: 'ooo',
+        age: 30
+      }
+    }
+
+    Object.defineProperty(data, 'ooo', {
+      get: function() {
+        return this._ooo
+      },
+      set: function(newValue) {
+        console.log('set')
+        this._ooo = newValue
+      }
+    })
+    
+    data.ooo.key = 'key' // 可以设置成功，不能感知set
+    delete data.ooo.name // 可以设置成功，不能感知set
+    
+正如以上的demo，这种情况下，Object.defineProperty不能感知到set，Vue无法做到响应式，但可以使用`Vue.set`。
