@@ -54,4 +54,41 @@ Vue中的`Object.defineProperty`响应式机制能感知到set data，不能感�
     data.ooo.key = 'key' // 可以设置成功，不能感知set
     delete data.ooo.name // 可以设置成功，不能感知set
     
-正如以上的demo，这种情况下，Object.defineProperty不能感知到set，Vue无法做到响应式，但可以使用`Vue.set`。
+正如以上的demo，这种情况下，Object.defineProperty不能感知到set，Vue无法做到响应式，可以使用`Vue.set`。
+
+### 2.不能感知直接用索引设置数组项
+
+    var data = {
+      _arr: [1, 2, 3]
+    }
+
+    Object.defineProperty(data, 'arr', {
+      enumerable: true,
+      configurable: true,
+      get: function() {
+        console.log('get arr')
+        return this._arr
+      },
+      set: function(newValue) {
+        console.log('set arr')
+        this._arr = newValue
+      }
+    })
+
+    Object.defineProperty(data.arr, '0', {
+      enumerable: true,
+      configurable: true,
+      get: function() {
+        console.log('get arr[0]')
+        // return this[0]
+      },
+      set: function(newValue) {
+        console.log('set arr[0]')
+        // this[0] = newValue
+      }
+    })
+    
+    // 可以设置成功，可以感知set，set不成功。不能用数组下标的方式set
+    // data.arr[0] = 3 
+    
+把arr和arr[0]都改写成访问器属性。
