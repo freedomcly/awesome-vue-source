@@ -5,7 +5,7 @@
 JavaScript对象中的属性有两种：数据属性和访问器属性。特性可以被认为是“属性的属性”。
 
 数据属性有4个特性：
-* [[Configurable]]
-* [[Enumerable]]
-* [[Writable]]
-* [[Value]]
+* [[Configurable]]  能否通过delete删除、能否修改属性的特性、能否修改为访问器属性
+* [[Enumerable]]  能否通过for-in循环返回属性
+* [[Writable]]  能否修改属性的值
+* [[Value]]  属性的数据值
