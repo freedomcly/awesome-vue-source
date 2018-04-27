@@ -85,10 +85,11 @@ Vue中的`Object.defineProperty`响应式机制能感知到set data，不能感�
       set: function(newValue) {
         console.log('set arr[0]')
         // this[0] = newValue
+        // data.arr[0] = newValue
       }
     })
     
     // 可以设置成功，可以感知set，set不成功。不能用数组下标的方式set
     // data.arr[0] = 3 
     
-把arr和arr[0]都改写成访问器属性。
+把arr和arr[0]都改写成访问器属性。由于setter函数中的`this[0]`这种方式不能使用
