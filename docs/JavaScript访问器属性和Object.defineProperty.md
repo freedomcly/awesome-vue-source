@@ -22,4 +22,8 @@ JavaScript对象中的属性有两种：数据属性和访问器属性。特性�
 
 ## Object.defineProperty
 
-`Object.defineProperty`和`Object.defineProperties`可以配置属性的特性。`Object.getOwnPropertyDescriptor`可以查询属性的特性。
+ES5中的新增了几个方法。`Object.defineProperty`和`Object.defineProperties`可以配置属性的特性。`Object.getOwnPropertyDescriptor`可以查询属性的特性。
+
+Vue响应式机制能感知到set data，但`Object.defineProperty`不能感知什么？
+
+* 
