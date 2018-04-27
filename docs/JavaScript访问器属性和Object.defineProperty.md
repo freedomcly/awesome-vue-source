@@ -15,3 +15,11 @@ JavaScript对象中的属性有两种：数据属性和访问器属性。特性�
 * [[Enumerable]]    能否通过for-in循环返回属性。默认true。
 * [[Get]]           读取属性时调用的函数。默认undefined。
 * [[Set]]           写入属性时调用的函数。默认undefined。
+
+需要注意：
+* 一旦把属性[[Configurable]]设置为false，不可配置，就不能再变回可配置。
+* 用对象字面量等常用方法创建的对象属性，都是数据属性。
+
+## Object.defineProperty
+
+Object.defineProperty和Object.defineProperties可以配置属性的特性。Object.getOwnPropertyDescriptor
