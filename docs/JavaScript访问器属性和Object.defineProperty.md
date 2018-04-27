@@ -9,3 +9,9 @@ JavaScript对象中的属性有两种：数据属性和访问器属性。特性�
 * [[Enumerable]]    能否通过for-in循环返回属性。默认true。
 * [[Writable]]      能否修改属性的值。默认true。
 * [[Value]]         属性的数据值。默认true。
+
+访问器属性有4个特性：
+* [[Configurable]]  能否通过delete删除、能否修改属性的特性、能否修改为数据属性。默认true。
+* [[Enumerable]]    能否通过for-in循环返回属性。默认true。
+* [[Get]]           读取属性时调用的函数。默认undefined。
+* [[Set]]           写入属性时调用的函数。默认undefined。
