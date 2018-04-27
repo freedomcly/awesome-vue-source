@@ -104,4 +104,4 @@ Vue中的`Object.defineProperty`响应式机制能感知到set data，不能感�
     // 可以设置成功，不能感知set
     data.arr.push(6)
     
-虽然`Object.defineProperty`不能感知数组的push等操作，但Vue源码改写了数组的push等操作，支持了响应式。见[vue文档——变异方法](https://cn.vuejs.org/v2/guide/list.html#%E5%8F%98%E5%BC%82%E6%96%B9%E6%B3%95)。
+虽然`Object.defineProperty`不能感知数组的push等操作，但Vue源码改写了数组的push等操作，支持了响应式。也就是改写了`Array.prototype.push`。见[vue文档——变异方法](https://cn.vuejs.org/v2/guide/list.html#%E5%8F%98%E5%BC%82%E6%96%B9%E6%B3%95)。
