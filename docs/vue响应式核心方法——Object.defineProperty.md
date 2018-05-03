@@ -1,4 +1,4 @@
-# Vue响应式核心方法——Object.defineProperty
+# vue响应式核心方法——Object.defineProperty
 
 ## 属性（property）和特性（attribute）
 
