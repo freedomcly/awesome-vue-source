@@ -75,6 +75,7 @@ MVVM是从MVC演化而来的软件架构模式。在现代vue项目中，可以�
 * proxy会把$data中的数据代理到vm上，也就是vm.$data.key1可以直接用vm.key1来访问，具体实现机制可以后面再看
 
 
+
     function observe(value, asRootData) {
       ...
       let ob = new Observer(value)
@@ -125,6 +126,7 @@ MVVM是从MVC演化而来的软件架构模式。在现代vue项目中，可以�
     
 * 在Observer中，会把Observer实例赋值给$data.\_\_ob\_\_
 * 另外，对data是数组和键值对的情况进行分别处理，数组时对每个值再进行observe(item)，键值对时，defineReactive(obj, key, value)
+
 
 
     export function defineReactive (
@@ -315,6 +317,6 @@ Vue不能感知到`vm.data.message.foo[0] = 2`的变化。对应于[官网列表
 
 疑问：
 * 为什么Vue不能感知到数组的变化呢？因为Object.defineProperty的限制。
-* Object.defineProperty还有哪些限制呢？
+* Object.defineProperty还有哪些限制呢？可以参考[vue响应式核心方法——Object.defineProperty](./vue响应式核心方法——Object.defineProperty.md)
 * Vue中除了data还有哪些是响应式的？
 
