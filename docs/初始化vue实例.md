@@ -157,7 +157,7 @@
 
 * 为什么`_init`一进去，vue实例里已经有几个变量：$data/$isServer/$props/$ssrContext
 
-这些变量是用`Object.defineProperty(Vue.prototype, '$data', dataDef)`这种形式定义的，因此所有Vue实例共享了这些变量。
+这些变量是用`Object.defineProperty(Vue.prototype, '$data', dataDef)`这种形式定义的，因此所有Vue实例共享了这些变量。$data的getter函数返回\_data，$props的getter函数返回\_props。
 
 * 前缀有什么区别：_/$/
 * 多页应用和单页应用中_uid的情况
