@@ -52,10 +52,9 @@
 * 如果没有以`new Vue({})`的方式运行，this指向不是vm，`this instanceof Vue`返回`false`，dev版本的vue会在浏览器console中提示：Vue is a constructor and should be called with the \`new\` keyword
 * warn是vue项目中自定义的console方法，底层使用JavaScript`console.error`
 * 为什么vue实例vm可以调用`this._init`方法呢？事实上，经过`initMixin(Vue)`后，Vue的原型对象增加了Vue.prototype._init。新建vm实例时，也就是`new Vue({})`运行时，vm实例可以调用构造函数Vue的原型对象上的方法
+* `process.env.NODE_ENV !== 'production'`可以在`build/config.js`中配置
 
 ## _init中做了哪些事
-
-源码中`process.env.NODE_ENV !== 'production'`可以在`build/config.js`中配置。
 
     Vue.prototype._init = function (options?: Object) {
       const vm: Component = this
@@ -154,9 +153,12 @@
 
 * $el                       // 真实dom元素
 
-## 一些问题
+## 问题们
 
 * 为什么`_init`一进去，vue实例里已经有几个变量：$data/$isServer/$props/$ssrContext
+
+这些变量是用`Object.defineProperty(Vue.prototype, '$data', dataDef)`这种形式定义的，因此所有Vue实例共享了这些变量。
+
 * 前缀有什么区别：_/$/
 * 多页应用和单页应用中_uid的情况
 * $data、_data和vm实例下对应变量们[data name]的区别是什么
