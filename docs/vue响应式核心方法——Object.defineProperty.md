@@ -107,7 +107,7 @@ data.arr[0] = 3
 data.length = 1
 ```
 
-这个问题可以用`data.splice(newLength)`来解决，因为splice是vue重写过的变异方法，参考4.
+这个问题可以用`data.splice(newLength)`来解决，因为splice是vue重写过的变异方法，参考4。
 
 ### 4.不能感知数组的push/pop等操作
 
