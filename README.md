@@ -5,7 +5,7 @@
 * [如何调试vue源码](docs/如何调试vue源码.md)
 * [初始化vue实例](docs/初始化vue实例.md)
 * [vue响应式原理](docs/vue响应式原理.md)
-* [vue响应式核心方法](docs/vue响应式核心方法——Object.defineProperty.md)
+* [vue响应式核心方法——Object.defineProperty](docs/vue响应式核心方法——Object.defineProperty.md)
 
 
 
