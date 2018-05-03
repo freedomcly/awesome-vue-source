@@ -116,5 +116,5 @@ data.length = 1
 data.arr.push(6)
 ```
 
-虽然`Object.defineProperty`不能感知数组的push等操作，但Vue源码改写了数组的push等操作，支持了响应式。也就是改写了`Array.prototype.push`。见[vue文档——变异方法](https://cn.vuejs.org/v2/guide/list.html#变异方法)。
+虽然`Object.defineProperty`不能感知数组的push等操作，但Vue源码改写了数组的push等操作，支持了响应式。也就是改写了`Array.prototype.push`等方法，感知到`arr.push()`调用时，再调用类似于setter函数中的notify，通知依赖更新。见[vue文档——变异方法](https://cn.vuejs.org/v2/guide/list.html#变异方法)。
 
