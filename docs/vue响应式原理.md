@@ -55,7 +55,7 @@ MVVM是从MVC演化而来的软件架构模式。在现代vue项目中，可以�
     }
     
 * 首先，initData中会检查选项options中的data的类型是对象还是函数，对此进行不同的处理。应用vue时data有两种写法：`data: {key1: value1, key2: value2};`、`data(){return {key1: value1, key2: value2}}`，可以参考vue的api文档：[data](https://cn.vuejs.org/v2/api/#data)
-* initData做了什么呢？初始化$data。在initData之前，$data是undefined，initData之后$data是:
+* initData做了什么呢？初始化$data。在initData之前，$data是`undefined`，initData之后$data是:
 
 
     {
