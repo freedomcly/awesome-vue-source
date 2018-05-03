@@ -163,8 +163,8 @@
 
 比较粗糙的解释是\_data是供vue源码内部使用，$data供外部的业务代码使用。但真实情况是外部$data和\_data都可以用。
 
+* $data、_data和vm实例下对应变量们[data name]的区别是什么，为什么要多次代理
 * 多页应用和单页应用中_uid的情况
-* $data、_data和vm实例下对应变量们[data name]的区别是什么
 * vue组件和vue页面的区别是什么？_isComponent有什么用
 * let a1 = {}和let a2 = Object.create(null)的区别是什么
 * \_\_proto\_\_是什么
