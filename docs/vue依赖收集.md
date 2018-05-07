@@ -63,3 +63,6 @@
       }
     }
     
+    Dep.target = null
+    
+`dep.depend()`做了什么？`Dep.target.addDep(this)`，this指向当前dep实例。`Dep.target`是什么？它是一个Watcher实例，后面会解释。`dep.depend()`就是把当前的dep实例收集到Watcher实例Dep.target的deps和depIds中，再把watcher实例收集到Dep类的subs中。
