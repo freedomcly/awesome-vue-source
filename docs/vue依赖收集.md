@@ -1,4 +1,4 @@
-`defineReactive`方法中，getter函数进行依赖收集，setter函数发出更新通知。
+`defineReactive`方法中，每个data对应一个dep实例，getter函数进行依赖收集，setter函数发出更新通知。
 
     export function defineReactive (
       obj: Object,
@@ -26,5 +26,40 @@
           dep.notify() // 更新通知
         }
       })
+    }
+    
+# Dep类
+
+    export default class Dep {
+      static target: ?Watcher;
+      id: number;
+      subs: Array<Watcher>;
+
+      constructor () {
+        this.id = uid++
+        this.subs = []
+      }
+
+      addSub (sub: Watcher) {
+        this.subs.push(sub)
+      }
+
+      removeSub (sub: Watcher) {
+        remove(this.subs, sub)
+      }
+
+      depend () {
+        if (Dep.target) {
+          Dep.target.addDep(this)
+        }
+      }
+
+      notify () {
+        // stabilize the subscriber list first
+        const subs = this.subs.slice()
+        for (let i = 0, l = subs.length; i < l; i++) {
+          subs[i].update()
+        }
+      }
     }
     

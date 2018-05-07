@@ -188,38 +188,7 @@ MVVM是从MVC演化而来的软件架构模式。在现代vue项目中，可以�
 
 Dep类：
 
-    export default class Dep {
-      static target: ?Watcher;
-      id: number;
-      subs: Array<Watcher>;
 
-      constructor () {
-        this.id = uid++
-        this.subs = []
-      }
-
-      addSub (sub: Watcher) {
-        this.subs.push(sub)
-      }
-
-      removeSub (sub: Watcher) {
-        remove(this.subs, sub)
-      }
-
-      depend () {
-        if (Dep.target) {
-          Dep.target.addDep(this)
-        }
-      }
-
-      notify () {
-        // stabilize the subscriber list first
-        const subs = this.subs.slice()
-        for (let i = 0, l = subs.length; i < l; i++) {
-          subs[i].update()
-        }
-      }
-    }
     
 Dep是依赖类。每个data对应一个Dep实例dep，当data有依赖时，也就是调用data的getter方法时，调用对应的dep.depend()方法。
 
