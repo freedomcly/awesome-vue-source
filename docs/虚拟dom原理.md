@@ -43,7 +43,7 @@ patch使用：
 
 # patch源码
 
-[patch流程图](https://www.processon.com/diagraming/5ab1d1d2e4b0a248b0d703cc)
+[patch流程图](https://www.processon.com/view/link/5ab1d1d2e4b007d2510e37f7)
 
     return function patch (oldVnode, vnode, hydrating, removeOnly, parentElm, refElm) {
       if (isUndef(vnode)) {
