@@ -8,5 +8,5 @@
 * [vue响应式核心方法——Object.defineProperty](docs/vue响应式核心方法——Object.defineProperty.md)
 * [vue依赖收集和数据更新](docs/vue依赖收集和数据更新.md)
 * [虚拟dom原理](docs/虚拟dom原理.md)
-
+* [vue生命周期](docs/vue生命周期.md)
 
