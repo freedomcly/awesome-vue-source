@@ -10,3 +10,5 @@ Vue 2.0源码学习。
 * [虚拟dom原理](docs/虚拟dom原理.md)
 * [vue生命周期](docs/vue生命周期.md)
 
+
+
