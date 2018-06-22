@@ -42,7 +42,6 @@ build/config.js可以和[官网对于vue不同版本的解释](https://vuejs.org
 entry-runtime-with-compiler.js和entry-runtime.js的区别是什么呢？
 
 * entry-runtime-with-compiler.js：编译出来是完整版vue，包含runtime和compiler。
-
 * entry-runtime.js：只包含runtime版本。
 
 compiler用来做模板字符串编译，也就是只有在基于vue的业务项目中包含template选项才会用到。
