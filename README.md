@@ -9,6 +9,7 @@ Vue 2.0源码学习。
 * [vue依赖收集和数据更新](docs/vue依赖收集和数据更新.md)
 * [虚拟dom原理](docs/虚拟dom原理.md)
 * [vue生命周期](docs/vue生命周期.md)
+* [nextTick](docs/nextTick.md)
 
 
 
