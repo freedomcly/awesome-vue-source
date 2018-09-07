@@ -1,5 +1,7 @@
 # patch上下文
 
+**Vue发出数据更新时，会patch整棵树。然后对值得patch的节点，递归地patchVnode。对值得patch且有子元素的节点进行同级比较更新updateChildren。**
+
 patch注入：
 
 ```
