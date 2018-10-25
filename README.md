@@ -10,6 +10,7 @@ Vue 2.0源码学习。
 * [虚拟dom原理](docs/虚拟dom原理.md)
 * [vue生命周期](docs/vue生命周期.md)
 * [nextTick](docs/nextTick.md)
+* [vue2.0和1.0的区别](docs/vue2.0和1.0的区别.md)
 
 
 
