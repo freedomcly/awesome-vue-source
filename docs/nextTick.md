@@ -6,7 +6,7 @@ nextTick中的回调函数在**Vue完成data update和DOM update之后，render�
 
 nextTick和setTimeout有什么不同？nextTick在render之前执行，setTimeout在render之后执行，见demo：
 
-    <div id="app">
+    <div id="app" ref="test">
       {{value}}
     </div>
     <script>
@@ -19,6 +19,7 @@ nextTick和setTimeout有什么不同？nextTick在render之前执行，setTimeou
         },
         mounted () {
           this.value = 1
+          console.log(this.$refs.test.innerText)
           setTimeout(() => {
             this.value = 3
           })
