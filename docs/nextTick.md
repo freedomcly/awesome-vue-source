@@ -43,6 +43,12 @@ vue中DOM render更新是异步的，放在下一个task中，所以打印`this.
 
 从源码中可以看到，vue会先尝试使用microtask即Promise，若浏览器不支持，再去尝试macrotask，也就是setTimeout兜底。
 
+使用microtask的好处是，microtask比macrotask先执行，可以在异步render之前执行，减少一次render。若使用macrotask，会在render之后的task中做数据刷新，在下一次的task中render。
+
+* microtask：（macrotask更新数据（microtask nextTick更新数据））（macrotaskDOM render）
+* macrotask：（macrotask更新数据）（macrotaskDOM render）（macrotask nextTick更新数据）（macrotaskDOM render）
+
+
 ## 异步流程
 
 | **macro task** | **micro task** | **macro task** | ... |
