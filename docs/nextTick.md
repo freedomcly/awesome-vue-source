@@ -30,7 +30,10 @@ nextTick和setTimeout有什么不同？nextTick在render之前执行，setTimeou
       })
     </script>
     
-nextTick不会看到value从1变成2，setTimeout能看到value从1变成3。另外setTimeout回调函数总是在nextTick之后执行。为什么呢？
+* 打印`this.$refs.test.innerText`是0
+* nextTick不会看到value从1变成2，setTimeout能看到value从1变成3。另外setTimeout回调函数总是在nextTick之后执行。
+
+为什么呢？
 
 ## 异步流程
 
