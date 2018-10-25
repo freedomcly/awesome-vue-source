@@ -19,7 +19,7 @@ nextTick和setTimeout有什么不同？nextTick在render之前执行，setTimeou
         },
         mounted () {
           this.value = 1
-          console.log(this.$refs.test.innerText)
+          console.log(this.$refs.test.innerText) // 0
           setTimeout(() => {
             this.value = 3
           })
