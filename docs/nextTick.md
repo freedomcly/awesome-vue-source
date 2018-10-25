@@ -1,7 +1,5 @@
 # nextTick
 
-nextTick中的回调函数在**Vue完成data update和DOM update之后，render之前**执行。
-
 ## 一个Demo
 
 nextTick和setTimeout有什么不同？nextTick在render之前执行，setTimeout在render之后执行，见demo：
