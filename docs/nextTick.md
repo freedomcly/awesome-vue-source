@@ -50,10 +50,6 @@ Promise => setImmediate => MessageChannel => setTimeout(后面三个都是macrot
 * microtask：（macrotask更新数据（microtask nextTick更新数据））（macrotaskDOM render）
 * macrotask：（macrotask更新数据）（macrotaskDOM render）（macrotask nextTick更新数据）（macrotaskDOM render）
 
-## 应用
-
-在应用中，Vue.nextTick适合那些即时的data更新，在render前更新会避免闪烁，用户体验更好。**比如，data有一个初始值，也有一个从接口读取的值，Vue.nextTick能避免从初始值到更新值的闪烁。**
-
 # 参考资料
 
 * [What is nextTick or what does it do in VueJs](https://stackoverflow.com/questions/47634258/what-is-nexttick-or-what-does-it-do-in-vuejs)
