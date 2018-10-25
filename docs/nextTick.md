@@ -35,7 +35,7 @@ nextTick和setTimeout有什么不同？
 
 vue中DOM render更新是异步的，放在下一个task中，所以打印`this.$refs.test.innerText`是0。
 
-异步的DOM render的原因是：合并上一个task中的数据刷新，减少render次数。
+异步的DOM render的原因是：合并上一个task中的数据刷新，减少render次数，提升性能。
 
 ## nextTick原理
 
