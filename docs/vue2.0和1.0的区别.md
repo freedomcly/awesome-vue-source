@@ -5,6 +5,7 @@
 * 服务器端渲染
 * weex native渲染
 
+
 * 生命周期api，如：ready替换为mounted
 * v-for，如：track-by替换为key
 * props，如：twoWay移除 单向数据流
