@@ -33,11 +33,11 @@ nextTick和setTimeout有什么不同？nextTick在render之前执行，setTimeou
 * 打印`this.$refs.test.innerText`是0
 * nextTick不会看到value从1变成2，setTimeout能看到value从1变成3。另外setTimeout回调函数总是在nextTick之后执行。
 
-为什么呢？
-
 ## nextTick异步原理
 
-vue中DOM更新是异步的，放在下一个task中，所以打印`this.$refs.test.innerText`是0。
+vue中DOM render更新是异步的，放在下一个task中，所以打印`this.$refs.test.innerText`是0。
+
+异步的DOM render的原因是：合并上一个task中的数据刷新，减少render次数。
 
 ## 异步流程
 
