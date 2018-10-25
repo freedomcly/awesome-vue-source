@@ -50,13 +50,7 @@ Promise => setImmediate => MessageChannel => setTimeout(后面三个都是macrot
 * microtask：（macrotask更新数据（microtask nextTick更新数据））（macrotaskDOM render）
 * macrotask：（macrotask更新数据）（macrotaskDOM render）（macrotask nextTick更新数据）（macrotaskDOM render）
 
-## 异步流程
-
-| **macro task** | **micro task** | **macro task** | ... |
-| :--- | :--- | :--- | :--- |
-| vue data update / vue DOM update | `Vue.nextTick` | vue render / `setTimeout` | ... |
-
-由此可见，vue render在下一个macro task队列，`setTimeout`也会把回调函数放到下一个macro task队列，而`Vue.nextTick`会把回调函数放在下一个micro task队列。所以`Vue.nextTick`会在render之前执行，`setTimeout`在render之后执行。
+## 应用
 
 在应用中，Vue.nextTick适合那些即时的data更新，在render前更新会避免闪烁，用户体验更好。**比如，data有一个初始值，也有一个从接口读取的值，Vue.nextTick能避免从初始值到更新值的闪烁。**
 
