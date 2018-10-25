@@ -35,6 +35,10 @@ nextTick和setTimeout有什么不同？nextTick在render之前执行，setTimeou
 
 为什么呢？
 
+## nextTick异步原理
+
+vue中DOM更新是异步的，放在下一个task中，所以打印`this.$refs.test.innerText`是0。
+
 ## 异步流程
 
 | **macro task** | **micro task** | **macro task** | ... |
