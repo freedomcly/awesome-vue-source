@@ -214,6 +214,12 @@ Vue依旧能感知到message.foo.foo1的变化，因为在setter函数中也会�
 
 Vue不能感知到`vm.data.message.foo[0] = 2`的变化。对应于[官网列表渲染相关的解释](https://cn.vuejs.org/v2/guide/list.html#%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9)。
 
+当赋值为数组，数组项是对象时，
+
+    vm.data.message.foo = [{a:1, b:2}, {c:3}]
+    
+Vue不能感知`vm.data.message.foo[0] = 2`的变化，但可以感知`vm.data.message.foo.a = 3`的变化。
+
 疑问：
 * 为什么Vue不能感知到数组的变化呢？因为Object.defineProperty的限制。
 * Object.defineProperty还有哪些限制呢？可以参考[vue响应式核心方法——Object.defineProperty](./vue响应式核心方法——Object.defineProperty.md)
